@@ -1,0 +1,7 @@
+runner-group:
+  project: "gts"
+  name-repo: "hello-world"
+  labels:
+    - gts
+    - test
+    - hello

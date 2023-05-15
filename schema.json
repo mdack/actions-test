@@ -1,0 +1,23 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://example.com/product.schema.json",
+    "title": "Runner Group",
+    "type": "object",
+    "properties": {
+      "project": {
+        "type": "string",
+        "description": "El proyecto para el que se crea el runner group."
+      },
+      "name-repo": {
+        "type": "string",
+        "description": "TRepositorio para el que se levanta agentes."
+      },
+      "labels": {
+        "type": "array",
+        "description": "Etiquetas de los runners.",
+        "items": {
+            "type": "string"
+        }
+      }
+    }
+  }

@@ -1,0 +1,31 @@
+name: YAML to JSON
+run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+on: [ push ]
+jobs:
+    verify-json-validation:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - name: Get SDK Version from config
+              id: lookupSdkVersion
+              uses: mikefarah/yq@master
+              with:
+                cmd: yq '.renutil.version' 'config.yml'
+            - name: Restore Cache
+              id: restore-cache
+              uses: actions/cache@v2
+              with:
+                path: ../renpy
+                key:  ${{ runner.os }}-sdk-${{ steps.lookupSdkVersion.outputs.result }}
+                restore-keys: |
+                  ${{ runner.os }}-sdk
+            - name: Create JSON file
+              run: yq r --prettyPrint -j test/test-yaml.yml > test-json.json
+              working-directory: test
+            - uses: actions/checkout@v1
+            - name: Validate JSON
+              uses: docker://orrosenblatt/validate-json-action:latest
+              env:
+                INPUT_SCHEMA: schema.json
+                INPUT_JSONS: test/test-json.json
+ 
