@@ -9,13 +9,6 @@ jobs:
               uses: mikefarah/yq@master
               with:
                 cmd: yq test/test-yaml.yml --prettyPrint -o=json > test-json.json
-            - name: Get an entry with a variable that might contain dots or spaces
-              id: get_username
-              uses: mikefarah/yq@master
-              with:
-                cmd: yq '.all.children.["${{ matrix.ip_address }}"].username' ops/inventories/production.yml
-            - name: Reuse a variable obtained in another step
-              run: echo ${{ steps.get_username.outputs.result }}
             - name: Create JSON file
               run: cp test-json.json data.json
               working-directory: test
