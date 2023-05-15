@@ -8,7 +8,7 @@ jobs:
             - name: Set foobar to cool
               uses: mikefarah/yq@master
               with:
-                cmd: yq -i '.foo.bar = "cool"' 'config.yml'
+                cmd: yq -i '.foo.bar = "cool"' 'test/test-yaml.yml'
             - name: Get an entry with a variable that might contain dots or spaces
               id: get_username
               uses: mikefarah/yq@master
