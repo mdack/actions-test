@@ -9,8 +9,10 @@ jobs:
               uses: mikefarah/yq@master
               with:
                 cmd: yq test/test-yaml.yml --prettyPrint -o=json > test-json.json
-            - name: Testing json
-              run: cat test-json.json
+            - name: Create file
+              run: |
+                touch /home/runner/work/actions-test/actions-test/test/data.json
+                chmod +wx /home/runner/work/actions-test/actions-test/test/data.json
             - name: Create JSON file
               run: cp test-json.json /home/runner/work/actions-test/actions-test/test/data.json
             - uses: actions/checkout@v1
