@@ -5,20 +5,8 @@ jobs:
     verify-json-validation:
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v2
-            - name: Get SDK Version from config
-              id: lookupSdkVersion
-              uses: mikefarah/yq@master
-              with:
-                cmd: yq '.renutil.version' 'config.yml'
-            - name: Restore Cache
-              id: restore-cache
-              uses: actions/cache@v2
-              with:
-                path: ../renpy
-                key:  ${{ runner.os }}-sdk-${{ steps.lookupSdkVersion.outputs.result }}
-                restore-keys: |
-                  ${{ runner.os }}-sdk
+            - name: Install yq
+              run: snap install yq --channel=v3/stable
             - name: Create JSON file
               run: yq r --prettyPrint -j test/test-yaml.yml > test-json.json
               working-directory: test
