@@ -9,12 +9,10 @@ jobs:
               uses: mikefarah/yq@master
               with:
                 cmd: yq test/test-yaml.yml --prettyPrint -o=json > test-json.json
-            - name: Create JSON file
-              run: cp test-json.json /home/runner/work/actions-test/actions-test/test/data.json
             - uses: actions/checkout@v1
             - name: Validate JSON
               uses: docker://orrosenblatt/validate-json-action:latest
               env:
-                INPUT_SCHEMA: schema.json
-                INPUT_JSONS: test/test-json.json
+                INPUT_SCHEMA: /home/runner/work/actions-test/actions-test/schema.json
+                INPUT_JSONS: test-json.json
  
