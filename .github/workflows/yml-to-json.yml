@@ -8,7 +8,7 @@ jobs:
             - name: Set foobar to cool
               uses: mikefarah/yq@master
               with:
-                cmd: yq r --prettyPrint -j test/test-yaml.yml > test-json.json
+                cmd: yq r --prettyPrint -tojson test/test-yaml.yml > test-json.json
             - name: Get an entry with a variable that might contain dots or spaces
               id: get_username
               uses: mikefarah/yq@master
